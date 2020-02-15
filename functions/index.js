@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-// Firestore maintains an interal _updateTime for every document, but this is
+// Firestore maintains an internal _updateTime for every document, but this is
 // not queryable. This function copies that to a visible field 'Updated'
 exports.makeUpdateTimeVisible = functions.firestore
       .document('NRCSSpp/{sppId}')

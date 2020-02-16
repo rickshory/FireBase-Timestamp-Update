@@ -13,11 +13,6 @@ exports.makeUpdateTimeVisible = functions.firestore
   const docName = context.params.sppId // this is how to get the document name
   console.log("Before: ", sppDoc.before); // if a create, a 'DocumentSnapshot',
   // otherwise a 'QueryDocumentSnapshot'
-  // if a create, everything about sppDoc.before is undefined
-  if (typeof sppDoc.before._fieldsProto === "undefined"){
-    console.log('document "', docName, '" has been created');
-    // set flags here if desired
-  }
   console.log("After: ", sppDoc.after); // if a delete, a 'DocumentSnapshot',
   // otherwise a 'QueryDocumentSnapshot'
   // if a delete, everything about sppDoc.after is undefined

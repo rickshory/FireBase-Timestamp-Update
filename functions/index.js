@@ -26,7 +26,7 @@ exports.makeUpdateTimeVisible = functions.firestore
     // the next iteration internnal time will have advanced
     // allow external time to lag internal by a little
     const secondsLate = secondsInternal - secondsExternal;
-    if (secondsLate < 120) { // two minutes sufficient for my purposes
+    if (secondsLate < 30) { // sufficient for this purpose
       console.log(docName, "field 'Updated' is", secondsLate,
                   "seconds late, OK");
        return null;

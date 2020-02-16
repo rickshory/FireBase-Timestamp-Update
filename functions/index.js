@@ -5,14 +5,11 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-// Firestore maintains an internal _updateTime for every document, but this is
+// Firestore maintains an internal _updateTime for every document, but it is
 // not queryable. This function copies that to a visible field 'Updated'
 exports.makeUpdateTimeVisible = functions.firestore
       .document('NRCSSpp/{sppId}')
       .onWrite((sppDoc, context) => {
-  console.log("Event type: ", context.eventType);
-  // context.eventType = 'google.firestore.document.write', so cannot use
-  // to distinguish e.g. create from update
   const docName = context.params.sppId // this is how to get the document name
   console.log("Before: ", sppDoc.before); // if a create, a 'DocumentSnapshot',
   // otherwise a 'QueryDocumentSnapshot'

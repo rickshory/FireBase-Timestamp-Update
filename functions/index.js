@@ -17,12 +17,6 @@ exports.makeUpdateTimeVisible = functions.firestore
     // other fields could be fetched from sppDoc.before
     return null; // no need to proceed
   }
-  console.log(sppDoc.after.data()); // the user defined fields:values
-  // inside curly braces
-  console.log(sppDoc.after._fieldsProto); // similar to previous except with
-  // data types, e.g.
-  // data() has { Code: 'OLDO',...
-  // _fieldsProto has { Code: { stringValue: 'OLDO' },...
   const timeJustUpdated = sppDoc.after._updateTime; // this is how to get the
   // internal nonqueryable timestamp
   console.log(timeJustUpdated);

@@ -17,12 +17,7 @@ exports.makeUpdateTimeVisible = functions.firestore
     // other fields could be fetched from sppDoc.before
     return null; // no need to proceed
   }
-  const timeJustUpdated = sppDoc.after._updateTime; // this is how to get the
-  // internal nonqueryable timestamp
-  console.log(timeJustUpdated);
-  //            Timestamp { _seconds: 1581615533, _nanoseconds: 496655000 }
-  //  later:    Timestamp { _seconds: 1581617552, _nanoseconds: 566223000 }
-  // so, this is correctly updating
+  const timeJustUpdated = sppDoc.after._updateTime; // get the internal timestamp
   // see if the doc has the 'Updated' field yet
   if (sppDoc.after._fieldsProto.hasOwnProperty('Updated')) {
     console.log("doc has the field 'Updated' with the value",

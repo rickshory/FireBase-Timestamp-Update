@@ -13,8 +13,8 @@ exports.makeUpdateTimeVisible = functions.firestore
   const docName = context.params.sppId // get document name, same as spp Code
   // if a delete, everything about sppDoc.after is undefined
   if (typeof sppDoc.after._fieldsProto === "undefined"){
-    console.log('document "', docName, '" has been deleted');
-    // other fields could be fetched from sppDoc.before
+    console.log(docName, 'has been deleted');
+    // data available in sppDoc.before
     return null; // no need to proceed
   }
   const timeJustUpdated = sppDoc.after._updateTime; // get the internal timestamp
@@ -27,15 +27,15 @@ exports.makeUpdateTimeVisible = functions.firestore
     // allow external time to lag internal by a little
     const secondsLate = secondsInternal - secondsExternal;
     if (secondsLate < 120) { // two minutes sufficient for my purposes
-      console.log("the field 'Updated' is", secondsLate,
+      console.log(docName, "field 'Updated' is", secondsLate,
                   "seconds late, OK");
        return null;
     }
-    console.log("the field 'Updated' is", secondsLate,
+    console.log(docName, "field 'Updated' is", secondsLate,
                   "seconds late, updating");
     // drop through to default return
   } else {
-    console.log("doc does not have the field 'Updated', adding it now.");
+    console.log(docName, "has no field 'Updated', adding it now.");
     // drop through to default return
   }
   // same 'set' for either creating the field 'Updated' the first time in a

@@ -10,11 +10,7 @@ admin.initializeApp();
 exports.makeUpdateTimeVisible = functions.firestore
       .document('NRCSSpp/{sppId}')
       .onWrite((sppDoc, context) => {
-  const docName = context.params.sppId // this is how to get the document name
-  console.log("Before: ", sppDoc.before); // if a create, a 'DocumentSnapshot',
-  // otherwise a 'QueryDocumentSnapshot'
-  console.log("After: ", sppDoc.after); // if a delete, a 'DocumentSnapshot',
-  // otherwise a 'QueryDocumentSnapshot'
+  const docName = context.params.sppId // get document name, same as spp Code
   // if a delete, everything about sppDoc.after is undefined
   if (typeof sppDoc.after._fieldsProto === "undefined"){
     console.log('document "', docName, '" has been deleted');

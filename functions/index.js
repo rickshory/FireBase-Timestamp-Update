@@ -20,9 +20,6 @@ exports.makeUpdateTimeVisible = functions.firestore
   const timeJustUpdated = sppDoc.after._updateTime; // get the internal timestamp
   // see if the doc has the 'Updated' field yet
   if (sppDoc.after._fieldsProto.hasOwnProperty('Updated')) {
-    console.log("doc has the field 'Updated' with the value",
-                  sppDoc.after._fieldsProto.Updated);
-    console.log("sppDoc:", sppDoc);
     const secondsInternal = timeJustUpdated._seconds;
     console.log(secondsInternal, "seconds, internal timestamp");
     const secondsExternal = sppDoc.after.data().Updated._seconds;

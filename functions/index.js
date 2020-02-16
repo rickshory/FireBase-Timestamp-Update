@@ -36,17 +36,17 @@ exports.makeUpdateTimeVisible = functions.firestore
     }
     console.log("the field 'Updated' is", secondsLate,
                   "seconds late, updating");
-    // return a promise of a set operation to update the timestamp
-    return sppDoc.after.ref.set({
-      Updated: timeJustUpdated
-    }, {merge: true});
-    // this change will call this same function again
+    // drop through to default return
   } else {
     console.log("doc does not have the field 'Updated', adding it now.");
-    // return a promise of a set operation to create the timestamp
-    return sppDoc.after.ref.set({
-      Updated: timeJustUpdated
-    }, {merge: true});
-    // this change will call this same function again
+    // drop through to default return
   }
+  // same 'set' for either creating the field 'Updated' the first time in a
+  // newly created document, or updating this field in an existing document when
+  // the timestamp is too old
+  // return a promise
+  return sppDoc.after.ref.set({
+    Updated: timeJustUpdated
+  }, {merge: true}); // 'merge' prevents overwrite of the whole doc
+  // this change will call this same function again
 });

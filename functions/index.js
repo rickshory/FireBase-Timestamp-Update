@@ -18,12 +18,9 @@ exports.makeUpdateTimeVisible = functions.firestore
     return null; // no need to proceed
   }
   const timeJustUpdated = sppDoc.after._updateTime; // get the internal timestamp
-  // see if the doc has the 'Updated' field yet
   if (sppDoc.after._fieldsProto.hasOwnProperty('Updated')) {
     const secondsInternal = timeJustUpdated._seconds;
-    console.log(secondsInternal, "seconds, internal timestamp");
     const secondsExternal = sppDoc.after.data().Updated._seconds;
-    console.log(secondsExternal, "seconds, external timestamp");
     // if the exit test were (external===internal), it would cause an
     // infinite loop because each update calls this function again, and by
     // the next iteration internnal time will have advanced
@@ -31,7 +28,7 @@ exports.makeUpdateTimeVisible = functions.firestore
     const secondsLate = secondsInternal - secondsExternal;
     if (secondsLate < 120) { // two minutes sufficient for my purposes
       console.log("the field 'Updated' is", secondsLate,
-                  "seconds late, good enough");
+                  "seconds late, OK");
        return null;
     }
     console.log("the field 'Updated' is", secondsLate,

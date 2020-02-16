@@ -24,13 +24,10 @@ exports.makeUpdateTimeVisible = functions.firestore
     console.log(secondsInternal, "seconds, internal timestamp");
     const secondsExternal = sppDoc.after.data().Updated._seconds;
     console.log(secondsExternal, "seconds, external timestamp");
-    // Careful here. If we just update the externally visible time to the
-    // internal time, we will go into an infinite loop because that update
-    // will call this function again, and by then the internal time will have
-    // advanced
-    // the following exit will not work:
-    if (secondsInternal === secondsExternal) return null; // will never exit
-    // instead, allow the external time to lag the internal by a little
+    // if the exit test were (external===internal), it would cause an
+    // infinite loop because each update calls this function again, and by
+    // the next iteration internnal time will have advanced
+    // allow external time to lag internal by a little
     const secondsLate = secondsInternal - secondsExternal;
     if (secondsLate < 120) { // two minutes sufficient for my purposes
       console.log("the field 'Updated' is", secondsLate,
